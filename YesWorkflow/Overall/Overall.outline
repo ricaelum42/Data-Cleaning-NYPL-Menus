@@ -1,0 +1,70 @@
+# @begin OverallDataCleanupWorkflow  @desc Workflow for cleaning NYPL Menus DataSet
+# @in Menu.csv  @uri file://data/Menu.cv
+# @in Dish.csv  @uri file://data/Dish.cv
+# @in MenuItem.csv  @uri file://data/MenuItem.cv
+# @in MenuPage.csv  @uri file://data/MenuPage.cv
+
+#     @begin CleanMenuWithOpenRefine  @desc Use OpenRefine to clean Menu.csv
+#     @in Menu.csv  @uri file://data/Menu.cv
+#     @param menuCleaningOperationsSequence
+#     @out CleanMenu.csv  @uri file://data/clean/CleanMenu.csv
+#     @end CleanMenuWithOpenRefine
+
+#     @begin CleanDishWithOpenRefine  @desc Use OpenRefine to clean Dish.csv
+#     @in Dish.csv  @uri file://data/Dish.cv
+#     @param dishCleaningOperationsSequence
+#     @out CleanDish.csv  @uri file://data/clean/CleanDish.csv
+#     @end CleanDishuWithOpenRefine
+
+#     @begin CleanMenuItemWithOpenRefine  @desc Use OpenRefine to clean MenuItem.csv
+#     @in MenuItem.csv  @uri file://data/MenuItem.cv
+#     @param menuItemCleaningOperationsSequence
+#     @out CleanMenuItem.csv  @uri file://data/clean/CleanMenuItem.csv
+#     @end CleanMenuItemWithOpenRefine
+
+#     @begin CleanMenuPageWithOpenRefine  @desc Use OpenRefine to clean MenuPage.csv
+#     @in MenuPage.csv  @uri file://data/MenuPage.cv
+#     @param menuPageCleaningOperationsSequence
+#     @out CleanMenuPage.csv  @uri file://data/clean/CleanMenuPage.csv
+#     @end CleanMenuPageWithOpenRefine
+
+#     @begin SQLOperationsOnMenu  @desc Load CleanMenu.csv into table MENU in SQLLite
+#     @in CleanMenu.csv  @uri file://data/clean/CleanMenu.csv
+#     @param menuLoadingSQLScript
+#     @out MENU  @uri sqlite://database.db/MENU
+#     @end SQLOperationsOnMenu
+
+#     @begin SQLOperationsOnDish  @desc Load CleanDish.csv into table DISH in SQLLite
+#     @in CleanDish.csv  @uri file://data/clean/CleanDish.csv
+#     @param dishLoadingSQLScript
+#     @out DISH  @uri sqlite://database.db/DISH
+#     @end SQLOperationsOnDish
+
+#     @begin SQLOperationsOnMenuItem  @desc Load CleanMenuItem.csv into table MENU_ITEM in SQLLite
+#     @in CleanMenuItem.csv  @uri file://data/clean/CleanMenuItem.csv
+#     @param menuItemLoadingSQLScript
+#     @out MENU_ITEM  @uri sqlite://database.db/MENU_ITEM
+#     @end SQLOperationsOnMenuItem
+
+#     @begin SQLOperationsOnMenuPage  @desc Load CleanMenuPage.csv into table MENU_PAGE in SQLLite
+#     @in CleanMenuPage.csv  @uri file://data/clean/CleanMenuPage.csv
+#     @param menuPageLoadingSQLScript
+#     @out MENU_PAGE  @uri sqlite://database.db/MENU_PAGE
+#     @end SQLOperationsOnMenuPage
+
+#     @begin SQLConstraintsCheck  @desc Use SQL to check integrity constraints and functional dependencies
+#     @in MENU  @uri sqlite://database.db/MENU
+#     @in DISH  @uri sqlite://database.db/DISH
+#     @in MENU_ITEM  @uri sqlite://database.db/MENU_PAGE
+#     @in MENU_PAGE  @uri sqlite://database.db/MENU_ITEM
+#     @param IntegrityConstraintsANDFunctionalDependenciesScript
+#     @out MENU_FINAL  @uri sqlite://database.db/MENU_FINAL
+#     @out DISH_FINAL  @uri sqlite://database.db/DISH_FINAL
+#     @out MENU_ITEM_FINAL  @uri sqlite://database.db/MENU_ITEM_FINAL
+#     @out MENU_PAGE_FINAL  @uri sqlite://database.db/MENU_PAGE_FINAL
+#     @end SQLConstraintsCheck
+# @out MENU_FINAL  @uri sqlite://database.db/MENU_FINAL
+# @out DISH_FINAL  @uri sqlite://database.db/DISH_FINAL
+# @out MENU_ITEM_FINAL  @uri sqlite://database.db/MENU_ITEM_FINAL
+# @out MENU_PAGE_FINAL  @uri sqlite://database.db/MENU_PAGE_FINAL
+# @end OverallDataCleanupWorkflow

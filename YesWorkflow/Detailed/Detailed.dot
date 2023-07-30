@@ -1,0 +1,99 @@
+
+/* Start of top-level graph */
+digraph Workflow {
+rankdir=TB
+
+/* Title for graph */
+fontname=Helvetica; fontsize=18; labelloc=t
+label=DetailedCleanup
+
+/* Start of double cluster for drawing box around nodes in workflow */
+subgraph cluster_workflow_box_outer { label=""; color=black; penwidth=2
+subgraph cluster_workflow_box_inner { label=""; penwidth=0
+
+/* Style for nodes representing atomic programs in workflow */
+node[shape=box style=filled fillcolor="#CCFFCC" peripheries=1 fontname=Helvetica]
+
+/* Nodes representing atomic programs in workflow */
+"OpenRefineMenuDataCleanup(TrimSpace)" [shape=record rankdir=LR label="{<f0> OpenRefineMenuDataCleanup(TrimSpace) |<f1> Trim and collapse white spaces in all columns.}"];
+"OpenRefineMenuDataCleanup(DataFormatting)" [shape=record rankdir=LR label="{<f0> OpenRefineMenuDataCleanup(DataFormatting) |<f1> Convert Numeric Field to number, Date Field to Date.}"];
+"OpenRefineMenuDataCleanup(RemoveSpecials)" [shape=record rankdir=LR label="{<f0> OpenRefineMenuDataCleanup(RemoveSpecials) |<f1> Remove columns with special characters (@#$% etc.).}"];
+"OpenRefineMenuDataCleanup(Clustering)" [shape=record rankdir=LR label="{<f0> OpenRefineMenuDataCleanup(Clustering) |<f1> Create clusters on sponsor, event, place and location using key collision and nearest neighbours.}"];
+"PythonMenuDataCleanup(RemoveMissingID/Sponsor)" [shape=record rankdir=LR label="{<f0> PythonMenuDataCleanup(RemoveMissingID/Sponsor) |<f1> Remove columns with missing IDs or missing Sponsors.}"];
+"OpenRefineDishClearnup(TrimSpace)" [shape=record rankdir=LR label="{<f0> OpenRefineDishClearnup(TrimSpace) |<f1> Trim and collapse whitespace characters in name column.}"];
+"OpenRefineDishClearnup(FormatConversion)" [shape=record rankdir=LR label="{<f0> OpenRefineDishClearnup(FormatConversion) |<f1> Convert numerical columns to number (description, menus_appeared etc.).}"];
+"OpenRefineDishClearnup(clustering)" [shape=record rankdir=LR label="{<f0> OpenRefineDishClearnup(clustering) |<f1> Clustering on the name column to group similar dishes}"];
+"PythonDishClearnup(DealingInvalidData)" [shape=record rankdir=LR label="{<f0> PythonDishClearnup(DealingInvalidData) |<f1> Deleted Dishes with missing IDs, invalid appearance_years and price.}"];
+"PythonMenuItemDataCleanup(RemoveInvalidData)" [shape=record rankdir=LR label="{<f0> PythonMenuItemDataCleanup(RemoveInvalidData) |<f1> Remove data with invalid data (missing IDs, Page/Dish IDs and invalid price)}"];
+"PythonMenuItemDataCleanup(RowDeletion)" [shape=record rankdir=LR label="{<f0> PythonMenuItemDataCleanup(RowDeletion) |<f1> Group invalid rows found above and get them deleted and stored in case needed.}"];
+"PythonMenuItemDataCleanup(FormatConversion)" [shape=record rankdir=LR label="{<f0> PythonMenuItemDataCleanup(FormatConversion) |<f1> Convert Datetime columns to Datatime format for better comparison.}"];
+
+/* Style for nodes representing non-parameter data channels in workflow */
+node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname=Helvetica]
+
+/* Nodes for non-parameter data channels in workflow */
+"Menu.csv" [shape=record rankdir=LR label="{<f0> Menu.csv |<f1> file\://rawdata/Menu.csv}"];
+"Menu-clean.csv" [shape=record rankdir=LR label="{<f0> Menu-clean.csv |<f1> file\://Clean_Data/Menu-clean.csv}"];
+"Step1DataCleanMenu.csv" [shape=record rankdir=LR label="{<f0> Step1DataCleanMenu.csv |<f1> file\://OpenRefine/Step1DataCleanMenu.csv}"];
+"Step2DataCleanMenu.csv" [shape=record rankdir=LR label="{<f0> Step2DataCleanMenu.csv |<f1> file\://OpenRefine/Step2DataCleanMenu.csv}"];
+"Step3DataCleanMenu.csv" [shape=record rankdir=LR label="{<f0> Step3DataCleanMenu.csv |<f1> file\://OpenRefine/Step3DataCleanMenu.csv}"];
+"Dish.csv" [shape=record rankdir=LR label="{<f0> Dish.csv |<f1> file\://rawdata/Dish.csv}"];
+"Dish-clean.csv" [shape=record rankdir=LR label="{<f0> Dish-clean.csv |<f1> file\://Clean_Data/Dish-clean.csv}"];
+"Step1DataCleanDish.csv" [shape=record rankdir=LR label="{<f0> Step1DataCleanDish.csv |<f1> file\://OpenRefine/Step1DataCleanDish.csv}"];
+"Step2DataCleanDish.csv" [shape=record rankdir=LR label="{<f0> Step2DataCleanDish.csv |<f1> file\://OpenRefine/Step2DataCleanDish.csv}"];
+"MenuItem.csv" [shape=record rankdir=LR label="{<f0> MenuItem.csv |<f1> file\://rawdata/MenuItem.csv}"];
+"Step1DataCleanMenuItem.csv" [shape=record rankdir=LR label="{<f0> Step1DataCleanMenuItem.csv |<f1> file\://OpenRefine/Step1DataCleanMenuItem.csv}"];
+"Step2DataCleanMenuItem.csv" [shape=record rankdir=LR label="{<f0> Step2DataCleanMenuItem.csv |<f1> file\://OpenRefine/Step2DataCleanMenuItem.csv}"];
+
+/* Style for nodes representing parameter channels in workflow */
+node[shape=box style="rounded,filled" fillcolor="#FCFCFC" peripheries=1 fontname=Helvetica]
+
+/* Nodes representing parameter channels in workflow */
+
+/* Edges representing connections between programs and channels */
+"OpenRefineMenuDataCleanup(TrimSpace)" -> "Menu-clean.csv"
+"Menu.csv" -> "OpenRefineMenuDataCleanup(TrimSpace)"
+menuCleaningOperationsSequence -> "OpenRefineMenuDataCleanup(TrimSpace)"
+"OpenRefineMenuDataCleanup(DataFormatting)" -> "Step1DataCleanMenu.csv"
+"Menu-clean.csv" -> "OpenRefineMenuDataCleanup(DataFormatting)"
+"OpenRefineMenuDataCleanup(RemoveSpecials)" -> "Step2DataCleanMenu.csv"
+"Step1DataCleanMenu.csv" -> "OpenRefineMenuDataCleanup(RemoveSpecials)"
+"OpenRefineMenuDataCleanup(Clustering)" -> "Step3DataCleanMenu.csv"
+"Step2DataCleanMenu.csv" -> "OpenRefineMenuDataCleanup(Clustering)"
+"PythonMenuDataCleanup(RemoveMissingID/Sponsor)" -> "DataCleanMenu.csv"
+"Step3DataCleanMenu.csv" -> "PythonMenuDataCleanup(RemoveMissingID/Sponsor)"
+"OpenRefineDishClearnup(TrimSpace)" -> "Dish-clean.csv"
+"Dish.csv" -> "OpenRefineDishClearnup(TrimSpace)"
+dishCleaningOperationsSequence -> "OpenRefineDishClearnup(TrimSpace)"
+"OpenRefineDishClearnup(FormatConversion)" -> "Step1DataCleanDish.csv"
+"Dish-clean.csv" -> "OpenRefineDishClearnup(FormatConversion)"
+"OpenRefineDishClearnup(clustering)" -> "Step2DataCleanDish.csv"
+"Step1DataCleanDish.csv" -> "OpenRefineDishClearnup(clustering)"
+"PythonDishClearnup(DealingInvalidData)" -> "DataCleanDish.csv"
+"Step2DataCleanDish.csv" -> "PythonDishClearnup(DealingInvalidData)"
+"PythonMenuItemDataCleanup(RemoveInvalidData)" -> "Step1DataCleanMenuItem.csv"
+"MenuItem.csv" -> "PythonMenuItemDataCleanup(RemoveInvalidData)"
+menuItemCleaningOperationsSequence -> "PythonMenuItemDataCleanup(RemoveInvalidData)"
+"PythonMenuItemDataCleanup(RowDeletion)" -> "Step2DataCleanMenuItem.csv"
+"Step1DataCleanMenuItem.csv" -> "PythonMenuItemDataCleanup(RowDeletion)"
+"PythonMenuItemDataCleanup(FormatConversion)" -> "DataCleanMenuItem.csv"
+"Step2DataCleanMenuItem.csv" -> "PythonMenuItemDataCleanup(FormatConversion)"
+
+/* End of double cluster for drawing box around nodes in workflow */
+}}
+
+/* Style for nodes representing workflow input ports */
+node[shape=circle style="rounded,filled" fillcolor="#FFFFFF" peripheries=1 fontname=Helvetica width=0.2]
+
+/* Nodes representing workflow input ports */
+"Menu.csv_input_port" [label=""]
+"Dish.csv_input_port" [label=""]
+"MenuItem.csv_input_port" [label=""]
+
+/* Edges from input ports to channels */
+"Menu.csv_input_port" -> "Menu.csv"
+"Dish.csv_input_port" -> "Dish.csv"
+"MenuItem.csv_input_port" -> "MenuItem.csv"
+
+/* End of top-level graph */
+}

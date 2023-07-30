@@ -1,0 +1,70 @@
+# @begin DetailedCleanup  @desc Detailed Workflow for cleaning NYPL Menus DataSet using OpenRefine and Python.
+# @in Menu.csv  @uri file://rawdata/Menu.csv
+# @in Dish.csv  @uri file://rawdata/Dish.csv
+# @in MenuItem.csv  @uri file://rawdata/MenuItem.csv
+# @in MenuPage.csv  @uri file://rawdata/MenuPage.csv
+
+#     @begin OpenRefineMenuDataCleanup(TrimSpace)  @desc Trim and collapse white spaces in all columns.
+#     @in Menu.csv  @uri file://rawdata/Menu.csv
+#     @param menuCleaningOperationsSequence
+#     @out Menu-clean.csv  @uri file://Clean_Data/Menu-clean.csv
+#     @end OpenRefineMenuDataCleanup(TrimSpace)
+
+#     @begin OpenRefineMenuDataCleanup(DataFormatting)  @desc Convert Numeric Field to number, Date Field to Date.
+#     @in Menu-clean.csv  @uri file://Clean_Data/Menu-clean.csv
+#     @out Step1DataCleanMenu.csv  @uri file://OpenRefine/Step1DataCleanMenu.csv
+#     @end OpenRefineMenuDataCleanup(TrimSpace)
+
+#     @begin OpenRefineMenuDataCleanup(RemoveSpecials)  @desc Remove columns with special characters (@#$% etc.).
+#     @in Step1DataCleanMenu.csv  @uri file://Clean_Data/Step1DataCleanMenu.csv
+#     @out Step2DataCleanMenu.csv  @uri file://OpenRefine/Step2DataCleanMenu.csv
+#     @end OpenRefineMenuDataCleanup(RemoveSpecials)
+
+#     @begin OpenRefineMenuDataCleanup(Clustering)  @desc Create clusters on sponsor, event, place and location using key collision and nearest neighbours.
+#     @in Step2DataCleanMenu.csv  @uri file://Clean_Data/Step2DataCleanMenu.csv
+#     @out Step3DataCleanMenu.csv  @uri file://OpenRefine/Step3DataCleanMenu.csv
+#     @end OpenRefineMenuDataCleanup(Clustering)
+
+#     @begin PythonMenuDataCleanup(RemoveMissingID/Sponsor)  @desc Remove columns with missing IDs or missing Sponsors.
+#     @in Step3DataCleanMenu.csv  @uri file://Clean_Data/Step3DataCleanMenu.csv
+#     @out DataCleanMenu.csv  @uri file://OpenRefine/DataCleanMenu.csv
+#     @end OpenRefineMenuDataCleanup(RemoveMissingID/Sponsor)
+
+#     @begin OpenRefineDishClearnup(TrimSpace)  @desc Trim and collapse whitespace characters in name column.
+#     @in Dish.csv  @uri file://rawdata/Dish.csv
+#     @param dishCleaningOperationsSequence
+#     @out Dish-clean.csv  @uri file://Clean_Data/Dish-clean.csv
+#     @end OpenRefineDishClearnup(TrimSpace)
+
+#     @begin OpenRefineDishClearnup(FormatConversion)  @desc Convert numerical columns to number (description, menus_appeared etc.).
+#     @in Dish-clean.csv  @uri file://Clean_Data/Dish-clean.csv
+#     @out Step1DataCleanDish.csv  @uri file://OpenRefine/Step1DataCleanDish.csv
+#     @end OpenRefineDishClearnup(FormatConversion)
+
+#     @begin OpenRefineDishClearnup(clustering)  @desc Clustering on the name column to group similar dishes
+#     @in Step1DataCleanDish.csv  @uri file://Clean_Data/Step1DataCleanDish.csv
+#     @out Step2DataCleanDish.csv  @uri file://OpenRefine/Step2DataCleanDish.csv
+#     @end OpenRefineDishClearnup(clustering)
+
+#     @begin PythonDishClearnup(DealingInvalidData)  @desc Deleted Dishes with missing IDs, invalid appearance_years and price.
+#     @in Step2DataCleanDish.csv  @uri file://Clean_Data/Step2DataCleanDish.csv
+#     @out DataCleanDish.csv  @uri file://OpenRefine/DataCleanDish.csv
+#     @end PythonDishClearnup(DealingInvalidData)
+
+#     @begin PythonMenuItemDataCleanup(RemoveInvalidData)  @desc Remove data with invalid data (missing IDs, Page/Dish IDs and invalid price)
+#     @in MenuItem.csv  @uri file:///MenuItem.csv
+#     @param menuItemCleaningOperationsSequence
+#     @out Step1DataCleanMenuItem.csv  @uri file://OpenRefine/Step1DataCleanMenuItem.csv
+#     @end PythonMenuItemDataCleanup(RemoveInvalidData)
+
+#     @begin PythonMenuItemDataCleanup(RowDeletion)  @desc Group invalid rows found above and get them deleted and stored in case needed.
+#     @in Step1DataCleanMenuItem.csv  @uri file:///Step1DataCleanMenuItem.csv
+#     @out Step2DataCleanMenuItem.csv  @uri file://OpenRefine/Step2DataCleanMenuItem.csv
+#     @end PythonMenuItemDataCleanup(RowDeletion)
+
+#     @begin PythonMenuItemDataCleanup(FormatConversion)  @desc Convert Datetime columns to Datatime format for better comparison.
+#     @in Step2DataCleanMenuItem.csv  @uri file:///Step2DataCleanMenuItem.csv
+#     @out DataCleanMenuItem.csv  @uri file://OpenRefine/DataCleanMenuItem.csv
+#     @end PythonMenuItemDataCleanup(FormatConversion)
+
+# @end DetailedCleanup

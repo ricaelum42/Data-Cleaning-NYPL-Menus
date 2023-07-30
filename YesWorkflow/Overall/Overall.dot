@@ -1,0 +1,123 @@
+
+/* Start of top-level graph */
+digraph Workflow {
+rankdir=TB
+
+/* Title for graph */
+fontname=Helvetica; fontsize=18; labelloc=t
+label=OverallDataCleanupWorkflow
+
+/* Start of double cluster for drawing box around nodes in workflow */
+subgraph cluster_workflow_box_outer { label=""; color=black; penwidth=2
+subgraph cluster_workflow_box_inner { label=""; penwidth=0
+
+/* Style for nodes representing atomic programs in workflow */
+node[shape=box style=filled fillcolor="#CCFFCC" peripheries=1 fontname=Helvetica]
+
+/* Nodes representing atomic programs in workflow */
+CleanMenuWithOpenRefine [shape=record rankdir=LR label="{<f0> CleanMenuWithOpenRefine |<f1> Use OpenRefine to clean Menu.csv}"];
+CleanDishWithOpenRefine [shape=record rankdir=LR label="{<f0> CleanDishWithOpenRefine |<f1> Use OpenRefine to clean Dish.csv}"];
+CleanMenuItemWithOpenRefine [shape=record rankdir=LR label="{<f0> CleanMenuItemWithOpenRefine |<f1> Use OpenRefine to clean MenuItem.csv}"];
+CleanMenuPageWithOpenRefine [shape=record rankdir=LR label="{<f0> CleanMenuPageWithOpenRefine |<f1> Use OpenRefine to clean MenuPage.csv}"];
+SQLOperationsOnMenu [shape=record rankdir=LR label="{<f0> SQLOperationsOnMenu |<f1> Load CleanMenu.csv into table MENU in SQLLite}"];
+SQLOperationsOnDish [shape=record rankdir=LR label="{<f0> SQLOperationsOnDish |<f1> Load CleanDish.csv into table DISH in SQLLite}"];
+SQLOperationsOnMenuItem [shape=record rankdir=LR label="{<f0> SQLOperationsOnMenuItem |<f1> Load CleanMenuItem.csv into table MENU_ITEM in SQLLite}"];
+SQLOperationsOnMenuPage [shape=record rankdir=LR label="{<f0> SQLOperationsOnMenuPage |<f1> Load CleanMenuPage.csv into table MENU_PAGE in SQLLite}"];
+SQLConstraintsCheck [shape=record rankdir=LR label="{<f0> SQLConstraintsCheck |<f1> Use SQL to check integrity constraints and functional dependencies}"];
+
+/* Style for nodes representing non-parameter data channels in workflow */
+node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname=Helvetica]
+
+/* Nodes for non-parameter data channels in workflow */
+"Menu.csv" [shape=record rankdir=LR label="{<f0> Menu.csv |<f1> file\://data/Menu.cv}"];
+"Dish.csv" [shape=record rankdir=LR label="{<f0> Dish.csv |<f1> file\://data/Dish.cv}"];
+"MenuItem.csv" [shape=record rankdir=LR label="{<f0> MenuItem.csv |<f1> file\://data/MenuItem.cv}"];
+"MenuPage.csv" [shape=record rankdir=LR label="{<f0> MenuPage.csv |<f1> file\://data/MenuPage.cv}"];
+"CleanMenu.csv" [shape=record rankdir=LR label="{<f0> CleanMenu.csv |<f1> file\://data/clean/CleanMenu.csv}"];
+"CleanDish.csv" [shape=record rankdir=LR label="{<f0> CleanDish.csv |<f1> file\://data/clean/CleanDish.csv}"];
+"CleanMenuItem.csv" [shape=record rankdir=LR label="{<f0> CleanMenuItem.csv |<f1> file\://data/clean/CleanMenuItem.csv}"];
+"CleanMenuPage.csv" [shape=record rankdir=LR label="{<f0> CleanMenuPage.csv |<f1> file\://data/clean/CleanMenuPage.csv}"];
+MENU [shape=record rankdir=LR label="{<f0> MENU |<f1> sqlite\://database.db/MENU}"];
+DISH [shape=record rankdir=LR label="{<f0> DISH |<f1> sqlite\://database.db/DISH}"];
+MENU_ITEM [shape=record rankdir=LR label="{<f0> MENU_ITEM |<f1> sqlite\://database.db/MENU_ITEM}"];
+MENU_PAGE [shape=record rankdir=LR label="{<f0> MENU_PAGE |<f1> sqlite\://database.db/MENU_PAGE}"];
+MENU_FINAL [shape=record rankdir=LR label="{<f0> MENU_FINAL |<f1> sqlite\://database.db/MENU_FINAL}"];
+DISH_FINAL [shape=record rankdir=LR label="{<f0> DISH_FINAL |<f1> sqlite\://database.db/DISH_FINAL}"];
+MENU_ITEM_FINAL [shape=record rankdir=LR label="{<f0> MENU_ITEM_FINAL |<f1> sqlite\://database.db/MENU_ITEM_FINAL}"];
+MENU_PAGE_FINAL [shape=record rankdir=LR label="{<f0> MENU_PAGE_FINAL |<f1> sqlite\://database.db/MENU_PAGE_FINAL}"];
+
+/* Style for nodes representing parameter channels in workflow */
+node[shape=box style="rounded,filled" fillcolor="#FCFCFC" peripheries=1 fontname=Helvetica]
+
+/* Nodes representing parameter channels in workflow */
+
+/* Edges representing connections between programs and channels */
+CleanMenuWithOpenRefine -> "CleanMenu.csv"
+"Menu.csv" -> CleanMenuWithOpenRefine
+menuCleaningOperationsSequence -> CleanMenuWithOpenRefine
+CleanDishWithOpenRefine -> "CleanDish.csv"
+"Dish.csv" -> CleanDishWithOpenRefine
+dishCleaningOperationsSequence -> CleanDishWithOpenRefine
+CleanMenuItemWithOpenRefine -> "CleanMenuItem.csv"
+"MenuItem.csv" -> CleanMenuItemWithOpenRefine
+menuItemCleaningOperationsSequence -> CleanMenuItemWithOpenRefine
+CleanMenuPageWithOpenRefine -> "CleanMenuPage.csv"
+"MenuPage.csv" -> CleanMenuPageWithOpenRefine
+menuPageCleaningOperationsSequence -> CleanMenuPageWithOpenRefine
+SQLOperationsOnMenu -> MENU
+"CleanMenu.csv" -> SQLOperationsOnMenu
+menuLoadingSQLScript -> SQLOperationsOnMenu
+SQLOperationsOnDish -> DISH
+"CleanDish.csv" -> SQLOperationsOnDish
+dishLoadingSQLScript -> SQLOperationsOnDish
+SQLOperationsOnMenuItem -> MENU_ITEM
+"CleanMenuItem.csv" -> SQLOperationsOnMenuItem
+menuItemLoadingSQLScript -> SQLOperationsOnMenuItem
+SQLOperationsOnMenuPage -> MENU_PAGE
+"CleanMenuPage.csv" -> SQLOperationsOnMenuPage
+menuPageLoadingSQLScript -> SQLOperationsOnMenuPage
+SQLConstraintsCheck -> MENU_FINAL
+SQLConstraintsCheck -> DISH_FINAL
+SQLConstraintsCheck -> MENU_ITEM_FINAL
+SQLConstraintsCheck -> MENU_PAGE_FINAL
+MENU -> SQLConstraintsCheck
+DISH -> SQLConstraintsCheck
+MENU_ITEM -> SQLConstraintsCheck
+MENU_PAGE -> SQLConstraintsCheck
+IntegrityConstraintsANDFunctionalDependenciesScript -> SQLConstraintsCheck
+
+/* End of double cluster for drawing box around nodes in workflow */
+}}
+
+/* Style for nodes representing workflow input ports */
+node[shape=circle style="rounded,filled" fillcolor="#FFFFFF" peripheries=1 fontname=Helvetica width=0.2]
+
+/* Nodes representing workflow input ports */
+"Menu.csv_input_port" [label=""]
+"Dish.csv_input_port" [label=""]
+"MenuItem.csv_input_port" [label=""]
+"MenuPage.csv_input_port" [label=""]
+
+/* Style for nodes representing workflow output ports */
+node[shape=circle style="rounded,filled" fillcolor="#FFFFFF" peripheries=1 fontname=Helvetica width=0.2]
+
+/* Nodes representing workflow output ports */
+MENU_FINAL_output_port [label=""]
+DISH_FINAL_output_port [label=""]
+MENU_ITEM_FINAL_output_port [label=""]
+MENU_PAGE_FINAL_output_port [label=""]
+
+/* Edges from input ports to channels */
+"Menu.csv_input_port" -> "Menu.csv"
+"Dish.csv_input_port" -> "Dish.csv"
+"MenuItem.csv_input_port" -> "MenuItem.csv"
+"MenuPage.csv_input_port" -> "MenuPage.csv"
+
+/* Edges from channels to output ports */
+MENU_FINAL -> MENU_FINAL_output_port
+DISH_FINAL -> DISH_FINAL_output_port
+MENU_ITEM_FINAL -> MENU_ITEM_FINAL_output_port
+MENU_PAGE_FINAL -> MENU_PAGE_FINAL_output_port
+
+/* End of top-level graph */
+}

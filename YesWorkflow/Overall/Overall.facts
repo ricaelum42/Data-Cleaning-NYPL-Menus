@@ -1,0 +1,425 @@
+
+% FACT: program(program_id, program_name, qualified_program_name, begin_annotation_id, end_annotation_id).
+program(1, 'OverallDataCleanupWorkflow', 'OverallDataCleanupWorkflow', 1, 103).
+program(2, 'CleanMenuWithOpenRefine', 'OverallDataCleanupWorkflow.CleanMenuWithOpenRefine', 11, 18).
+program(3, 'CleanDishWithOpenRefine', 'OverallDataCleanupWorkflow.CleanDishWithOpenRefine', 19, 26).
+program(4, 'CleanMenuItemWithOpenRefine', 'OverallDataCleanupWorkflow.CleanMenuItemWithOpenRefine', 27, 34).
+program(5, 'CleanMenuPageWithOpenRefine', 'OverallDataCleanupWorkflow.CleanMenuPageWithOpenRefine', 35, 42).
+program(6, 'SQLOperationsOnMenu', 'OverallDataCleanupWorkflow.SQLOperationsOnMenu', 43, 50).
+program(7, 'SQLOperationsOnDish', 'OverallDataCleanupWorkflow.SQLOperationsOnDish', 51, 58).
+program(8, 'SQLOperationsOnMenuItem', 'OverallDataCleanupWorkflow.SQLOperationsOnMenuItem', 59, 66).
+program(9, 'SQLOperationsOnMenuPage', 'OverallDataCleanupWorkflow.SQLOperationsOnMenuPage', 67, 74).
+program(10, 'SQLConstraintsCheck', 'OverallDataCleanupWorkflow.SQLConstraintsCheck', 75, 94).
+
+% FACT: workflow(program_id).
+workflow(1).
+
+% FACT: function(program_id).
+
+% FACT: has_subprogram(program_id, subprogram_id).
+has_subprogram(1, 2).
+has_subprogram(1, 3).
+has_subprogram(1, 4).
+has_subprogram(1, 5).
+has_subprogram(1, 6).
+has_subprogram(1, 7).
+has_subprogram(1, 8).
+has_subprogram(1, 9).
+has_subprogram(1, 10).
+
+% FACT: port(port_id, port_type, port_name, qualified_port_name, port_annotation_id, data_id).
+port(1, 'in', 'Menu.csv', 'OverallDataCleanupWorkflow<-Menu.csv', 3, 1).
+port(2, 'in', 'Dish.csv', 'OverallDataCleanupWorkflow<-Dish.csv', 5, 2).
+port(3, 'in', 'MenuItem.csv', 'OverallDataCleanupWorkflow<-MenuItem.csv', 7, 3).
+port(4, 'in', 'MenuPage.csv', 'OverallDataCleanupWorkflow<-MenuPage.csv', 9, 4).
+port(38, 'out', 'MENU_FINAL', 'OverallDataCleanupWorkflow->MENU_FINAL', 95, 30).
+port(39, 'out', 'DISH_FINAL', 'OverallDataCleanupWorkflow->DISH_FINAL', 97, 31).
+port(40, 'out', 'MENU_ITEM_FINAL', 'OverallDataCleanupWorkflow->MENU_ITEM_FINAL', 99, 32).
+port(41, 'out', 'MENU_PAGE_FINAL', 'OverallDataCleanupWorkflow->MENU_PAGE_FINAL', 101, 33).
+port(5, 'in', 'Menu.csv', 'OverallDataCleanupWorkflow.CleanMenuWithOpenRefine<-Menu.csv', 13, 5).
+port(6, 'param', 'menuCleaningOperationsSequence', 'OverallDataCleanupWorkflow.CleanMenuWithOpenRefine<-menuCleaningOperationsSequence', 15, 6).
+port(7, 'out', 'CleanMenu.csv', 'OverallDataCleanupWorkflow.CleanMenuWithOpenRefine->CleanMenu.csv', 16, 7).
+port(8, 'in', 'Dish.csv', 'OverallDataCleanupWorkflow.CleanDishWithOpenRefine<-Dish.csv', 21, 8).
+port(9, 'param', 'dishCleaningOperationsSequence', 'OverallDataCleanupWorkflow.CleanDishWithOpenRefine<-dishCleaningOperationsSequence', 23, 9).
+port(10, 'out', 'CleanDish.csv', 'OverallDataCleanupWorkflow.CleanDishWithOpenRefine->CleanDish.csv', 24, 10).
+port(11, 'in', 'MenuItem.csv', 'OverallDataCleanupWorkflow.CleanMenuItemWithOpenRefine<-MenuItem.csv', 29, 11).
+port(12, 'param', 'menuItemCleaningOperationsSequence', 'OverallDataCleanupWorkflow.CleanMenuItemWithOpenRefine<-menuItemCleaningOperationsSequence', 31, 12).
+port(13, 'out', 'CleanMenuItem.csv', 'OverallDataCleanupWorkflow.CleanMenuItemWithOpenRefine->CleanMenuItem.csv', 32, 13).
+port(14, 'in', 'MenuPage.csv', 'OverallDataCleanupWorkflow.CleanMenuPageWithOpenRefine<-MenuPage.csv', 37, 14).
+port(15, 'param', 'menuPageCleaningOperationsSequence', 'OverallDataCleanupWorkflow.CleanMenuPageWithOpenRefine<-menuPageCleaningOperationsSequence', 39, 15).
+port(16, 'out', 'CleanMenuPage.csv', 'OverallDataCleanupWorkflow.CleanMenuPageWithOpenRefine->CleanMenuPage.csv', 40, 16).
+port(17, 'in', 'CleanMenu.csv', 'OverallDataCleanupWorkflow.SQLOperationsOnMenu<-CleanMenu.csv', 45, 7).
+port(18, 'param', 'menuLoadingSQLScript', 'OverallDataCleanupWorkflow.SQLOperationsOnMenu<-menuLoadingSQLScript', 47, 17).
+port(19, 'out', 'MENU', 'OverallDataCleanupWorkflow.SQLOperationsOnMenu->MENU', 48, 18).
+port(20, 'in', 'CleanDish.csv', 'OverallDataCleanupWorkflow.SQLOperationsOnDish<-CleanDish.csv', 53, 10).
+port(21, 'param', 'dishLoadingSQLScript', 'OverallDataCleanupWorkflow.SQLOperationsOnDish<-dishLoadingSQLScript', 55, 19).
+port(22, 'out', 'DISH', 'OverallDataCleanupWorkflow.SQLOperationsOnDish->DISH', 56, 20).
+port(23, 'in', 'CleanMenuItem.csv', 'OverallDataCleanupWorkflow.SQLOperationsOnMenuItem<-CleanMenuItem.csv', 61, 13).
+port(24, 'param', 'menuItemLoadingSQLScript', 'OverallDataCleanupWorkflow.SQLOperationsOnMenuItem<-menuItemLoadingSQLScript', 63, 21).
+port(25, 'out', 'MENU_ITEM', 'OverallDataCleanupWorkflow.SQLOperationsOnMenuItem->MENU_ITEM', 64, 22).
+port(26, 'in', 'CleanMenuPage.csv', 'OverallDataCleanupWorkflow.SQLOperationsOnMenuPage<-CleanMenuPage.csv', 69, 16).
+port(27, 'param', 'menuPageLoadingSQLScript', 'OverallDataCleanupWorkflow.SQLOperationsOnMenuPage<-menuPageLoadingSQLScript', 71, 23).
+port(28, 'out', 'MENU_PAGE', 'OverallDataCleanupWorkflow.SQLOperationsOnMenuPage->MENU_PAGE', 72, 24).
+port(29, 'in', 'MENU', 'OverallDataCleanupWorkflow.SQLConstraintsCheck<-MENU', 77, 18).
+port(30, 'in', 'DISH', 'OverallDataCleanupWorkflow.SQLConstraintsCheck<-DISH', 79, 20).
+port(31, 'in', 'MENU_ITEM', 'OverallDataCleanupWorkflow.SQLConstraintsCheck<-MENU_ITEM', 81, 22).
+port(32, 'in', 'MENU_PAGE', 'OverallDataCleanupWorkflow.SQLConstraintsCheck<-MENU_PAGE', 83, 24).
+port(33, 'param', 'IntegrityConstraintsANDFunctionalDependenciesScript', 'OverallDataCleanupWorkflow.SQLConstraintsCheck<-IntegrityConstraintsANDFunctionalDependenciesScript', 85, 25).
+port(34, 'out', 'MENU_FINAL', 'OverallDataCleanupWorkflow.SQLConstraintsCheck->MENU_FINAL', 86, 26).
+port(35, 'out', 'DISH_FINAL', 'OverallDataCleanupWorkflow.SQLConstraintsCheck->DISH_FINAL', 88, 27).
+port(36, 'out', 'MENU_ITEM_FINAL', 'OverallDataCleanupWorkflow.SQLConstraintsCheck->MENU_ITEM_FINAL', 90, 28).
+port(37, 'out', 'MENU_PAGE_FINAL', 'OverallDataCleanupWorkflow.SQLConstraintsCheck->MENU_PAGE_FINAL', 92, 29).
+
+% FACT: port_alias(port_id, alias).
+
+% FACT: port_uri_template(port_id, uri).
+port_uri_template(1, 'file://data/Menu.cv').
+port_uri_template(2, 'file://data/Dish.cv').
+port_uri_template(3, 'file://data/MenuItem.cv').
+port_uri_template(4, 'file://data/MenuPage.cv').
+port_uri_template(38, 'sqlite://database.db/MENU_FINAL').
+port_uri_template(39, 'sqlite://database.db/DISH_FINAL').
+port_uri_template(40, 'sqlite://database.db/MENU_ITEM_FINAL').
+port_uri_template(41, 'sqlite://database.db/MENU_PAGE_FINAL').
+port_uri_template(5, 'file://data/Menu.cv').
+port_uri_template(7, 'file://data/clean/CleanMenu.csv').
+port_uri_template(8, 'file://data/Dish.cv').
+port_uri_template(10, 'file://data/clean/CleanDish.csv').
+port_uri_template(11, 'file://data/MenuItem.cv').
+port_uri_template(13, 'file://data/clean/CleanMenuItem.csv').
+port_uri_template(14, 'file://data/MenuPage.cv').
+port_uri_template(16, 'file://data/clean/CleanMenuPage.csv').
+port_uri_template(17, 'file://data/clean/CleanMenu.csv').
+port_uri_template(19, 'sqlite://database.db/MENU').
+port_uri_template(20, 'file://data/clean/CleanDish.csv').
+port_uri_template(22, 'sqlite://database.db/DISH').
+port_uri_template(23, 'file://data/clean/CleanMenuItem.csv').
+port_uri_template(25, 'sqlite://database.db/MENU_ITEM').
+port_uri_template(26, 'file://data/clean/CleanMenuPage.csv').
+port_uri_template(28, 'sqlite://database.db/MENU_PAGE').
+port_uri_template(29, 'sqlite://database.db/MENU').
+port_uri_template(30, 'sqlite://database.db/DISH').
+port_uri_template(31, 'sqlite://database.db/MENU_PAGE').
+port_uri_template(32, 'sqlite://database.db/MENU_ITEM').
+port_uri_template(34, 'sqlite://database.db/MENU_FINAL').
+port_uri_template(35, 'sqlite://database.db/DISH_FINAL').
+port_uri_template(36, 'sqlite://database.db/MENU_ITEM_FINAL').
+port_uri_template(37, 'sqlite://database.db/MENU_PAGE_FINAL').
+
+% FACT: has_in_port(block_id, port_id).
+has_in_port(1, 1).
+has_in_port(1, 2).
+has_in_port(1, 3).
+has_in_port(1, 4).
+has_in_port(2, 5).
+has_in_port(2, 6).
+has_in_port(3, 8).
+has_in_port(3, 9).
+has_in_port(4, 11).
+has_in_port(4, 12).
+has_in_port(5, 14).
+has_in_port(5, 15).
+has_in_port(6, 17).
+has_in_port(6, 18).
+has_in_port(7, 20).
+has_in_port(7, 21).
+has_in_port(8, 23).
+has_in_port(8, 24).
+has_in_port(9, 26).
+has_in_port(9, 27).
+has_in_port(10, 29).
+has_in_port(10, 30).
+has_in_port(10, 31).
+has_in_port(10, 32).
+has_in_port(10, 33).
+
+% FACT: has_out_port(block_id, port_id).
+has_out_port(1, 38).
+has_out_port(1, 39).
+has_out_port(1, 40).
+has_out_port(1, 41).
+has_out_port(2, 7).
+has_out_port(3, 10).
+has_out_port(4, 13).
+has_out_port(5, 16).
+has_out_port(6, 19).
+has_out_port(7, 22).
+has_out_port(8, 25).
+has_out_port(9, 28).
+has_out_port(10, 34).
+has_out_port(10, 35).
+has_out_port(10, 36).
+has_out_port(10, 37).
+
+% FACT: data(data_id, data_name, qualified_data_name).
+data(1, 'Menu.csv', '[Menu.csv]').
+data(2, 'Dish.csv', '[Dish.csv]').
+data(3, 'MenuItem.csv', '[MenuItem.csv]').
+data(4, 'MenuPage.csv', '[MenuPage.csv]').
+data(30, 'MENU_FINAL', '[MENU_FINAL]').
+data(31, 'DISH_FINAL', '[DISH_FINAL]').
+data(32, 'MENU_ITEM_FINAL', '[MENU_ITEM_FINAL]').
+data(33, 'MENU_PAGE_FINAL', '[MENU_PAGE_FINAL]').
+data(5, 'Menu.csv', 'OverallDataCleanupWorkflow[Menu.csv]').
+data(6, 'menuCleaningOperationsSequence', 'OverallDataCleanupWorkflow[menuCleaningOperationsSequence]').
+data(7, 'CleanMenu.csv', 'OverallDataCleanupWorkflow[CleanMenu.csv]').
+data(8, 'Dish.csv', 'OverallDataCleanupWorkflow[Dish.csv]').
+data(9, 'dishCleaningOperationsSequence', 'OverallDataCleanupWorkflow[dishCleaningOperationsSequence]').
+data(10, 'CleanDish.csv', 'OverallDataCleanupWorkflow[CleanDish.csv]').
+data(11, 'MenuItem.csv', 'OverallDataCleanupWorkflow[MenuItem.csv]').
+data(12, 'menuItemCleaningOperationsSequence', 'OverallDataCleanupWorkflow[menuItemCleaningOperationsSequence]').
+data(13, 'CleanMenuItem.csv', 'OverallDataCleanupWorkflow[CleanMenuItem.csv]').
+data(14, 'MenuPage.csv', 'OverallDataCleanupWorkflow[MenuPage.csv]').
+data(15, 'menuPageCleaningOperationsSequence', 'OverallDataCleanupWorkflow[menuPageCleaningOperationsSequence]').
+data(16, 'CleanMenuPage.csv', 'OverallDataCleanupWorkflow[CleanMenuPage.csv]').
+data(17, 'menuLoadingSQLScript', 'OverallDataCleanupWorkflow[menuLoadingSQLScript]').
+data(18, 'MENU', 'OverallDataCleanupWorkflow[MENU]').
+data(19, 'dishLoadingSQLScript', 'OverallDataCleanupWorkflow[dishLoadingSQLScript]').
+data(20, 'DISH', 'OverallDataCleanupWorkflow[DISH]').
+data(21, 'menuItemLoadingSQLScript', 'OverallDataCleanupWorkflow[menuItemLoadingSQLScript]').
+data(22, 'MENU_ITEM', 'OverallDataCleanupWorkflow[MENU_ITEM]').
+data(23, 'menuPageLoadingSQLScript', 'OverallDataCleanupWorkflow[menuPageLoadingSQLScript]').
+data(24, 'MENU_PAGE', 'OverallDataCleanupWorkflow[MENU_PAGE]').
+data(25, 'IntegrityConstraintsANDFunctionalDependenciesScript', 'OverallDataCleanupWorkflow[IntegrityConstraintsANDFunctionalDependenciesScript]').
+data(26, 'MENU_FINAL', 'OverallDataCleanupWorkflow[MENU_FINAL]').
+data(27, 'DISH_FINAL', 'OverallDataCleanupWorkflow[DISH_FINAL]').
+data(28, 'MENU_ITEM_FINAL', 'OverallDataCleanupWorkflow[MENU_ITEM_FINAL]').
+data(29, 'MENU_PAGE_FINAL', 'OverallDataCleanupWorkflow[MENU_PAGE_FINAL]').
+
+% FACT: channel(channel_id, data_id).
+channel(1, 5).
+channel(2, 8).
+channel(3, 11).
+channel(4, 14).
+channel(5, 7).
+channel(6, 10).
+channel(7, 13).
+channel(8, 16).
+channel(9, 18).
+channel(10, 20).
+channel(11, 22).
+channel(12, 24).
+channel(13, 30).
+channel(14, 31).
+channel(15, 32).
+channel(16, 33).
+channel(17, 1).
+channel(18, 2).
+channel(19, 3).
+channel(20, 4).
+channel(21, 26).
+channel(22, 27).
+channel(23, 28).
+channel(24, 29).
+
+% FACT: port_connects_to_channel(port_id, channel_id).
+port_connects_to_channel(5, 1).
+port_connects_to_channel(8, 2).
+port_connects_to_channel(11, 3).
+port_connects_to_channel(14, 4).
+port_connects_to_channel(7, 5).
+port_connects_to_channel(17, 5).
+port_connects_to_channel(10, 6).
+port_connects_to_channel(20, 6).
+port_connects_to_channel(13, 7).
+port_connects_to_channel(23, 7).
+port_connects_to_channel(16, 8).
+port_connects_to_channel(26, 8).
+port_connects_to_channel(19, 9).
+port_connects_to_channel(29, 9).
+port_connects_to_channel(22, 10).
+port_connects_to_channel(30, 10).
+port_connects_to_channel(25, 11).
+port_connects_to_channel(31, 11).
+port_connects_to_channel(28, 12).
+port_connects_to_channel(32, 12).
+port_connects_to_channel(34, 13).
+port_connects_to_channel(35, 14).
+port_connects_to_channel(36, 15).
+port_connects_to_channel(37, 16).
+port_connects_to_channel(5, 17).
+port_connects_to_channel(8, 18).
+port_connects_to_channel(11, 19).
+port_connects_to_channel(14, 20).
+port_connects_to_channel(34, 21).
+port_connects_to_channel(35, 22).
+port_connects_to_channel(36, 23).
+port_connects_to_channel(37, 24).
+
+% FACT: inflow_connects_to_channel(port_id, channel_id).
+inflow_connects_to_channel(1, 1).
+inflow_connects_to_channel(2, 2).
+inflow_connects_to_channel(3, 3).
+inflow_connects_to_channel(4, 4).
+inflow_connects_to_channel(1, 17).
+inflow_connects_to_channel(2, 18).
+inflow_connects_to_channel(3, 19).
+inflow_connects_to_channel(4, 20).
+
+% FACT: outflow_connects_to_channel(port_id, channel_id).
+outflow_connects_to_channel(38, 13).
+outflow_connects_to_channel(39, 14).
+outflow_connects_to_channel(40, 15).
+outflow_connects_to_channel(41, 16).
+outflow_connects_to_channel(38, 21).
+outflow_connects_to_channel(39, 22).
+outflow_connects_to_channel(40, 23).
+outflow_connects_to_channel(41, 24).
+
+% FACT: uri_variable(uri_variable_id, variable_name, port_id).
+
+% FACT: log_template(log_template_id, port_id, entry_template, log_annotation_id).
+
+% FACT: log_template_variable(log_variable_id, variable_name, log_template_id).
+
+% FACT: extract_source(source_id, source_path).
+extract_source(1, '').
+
+% FACT: annotation(annotation_id, source_id, line_number, tag, keyword, value).
+annotation(1, 1, 1, 'begin', '@begin', 'OverallDataCleanupWorkflow').
+annotation(2, 1, 1, 'desc', '@desc', 'Workflow for cleaning NYPL Menus DataSet').
+annotation(3, 1, 2, 'in', '@in', 'Menu.csv').
+annotation(4, 1, 2, 'uri', '@uri', 'file://data/Menu.cv').
+annotation(5, 1, 3, 'in', '@in', 'Dish.csv').
+annotation(6, 1, 3, 'uri', '@uri', 'file://data/Dish.cv').
+annotation(7, 1, 4, 'in', '@in', 'MenuItem.csv').
+annotation(8, 1, 4, 'uri', '@uri', 'file://data/MenuItem.cv').
+annotation(9, 1, 5, 'in', '@in', 'MenuPage.csv').
+annotation(10, 1, 5, 'uri', '@uri', 'file://data/MenuPage.cv').
+annotation(11, 1, 7, 'begin', '@begin', 'CleanMenuWithOpenRefine').
+annotation(12, 1, 7, 'desc', '@desc', 'Use OpenRefine to clean Menu.csv').
+annotation(13, 1, 8, 'in', '@in', 'Menu.csv').
+annotation(14, 1, 8, 'uri', '@uri', 'file://data/Menu.cv').
+annotation(15, 1, 9, 'param', '@param', 'menuCleaningOperationsSequence').
+annotation(16, 1, 10, 'out', '@out', 'CleanMenu.csv').
+annotation(17, 1, 10, 'uri', '@uri', 'file://data/clean/CleanMenu.csv').
+annotation(18, 1, 11, 'end', '@end', 'CleanMenuWithOpenRefine').
+annotation(19, 1, 13, 'begin', '@begin', 'CleanDishWithOpenRefine').
+annotation(20, 1, 13, 'desc', '@desc', 'Use OpenRefine to clean Dish.csv').
+annotation(21, 1, 14, 'in', '@in', 'Dish.csv').
+annotation(22, 1, 14, 'uri', '@uri', 'file://data/Dish.cv').
+annotation(23, 1, 15, 'param', '@param', 'dishCleaningOperationsSequence').
+annotation(24, 1, 16, 'out', '@out', 'CleanDish.csv').
+annotation(25, 1, 16, 'uri', '@uri', 'file://data/clean/CleanDish.csv').
+annotation(26, 1, 17, 'end', '@end', 'CleanDishuWithOpenRefine').
+annotation(27, 1, 19, 'begin', '@begin', 'CleanMenuItemWithOpenRefine').
+annotation(28, 1, 19, 'desc', '@desc', 'Use OpenRefine to clean MenuItem.csv').
+annotation(29, 1, 20, 'in', '@in', 'MenuItem.csv').
+annotation(30, 1, 20, 'uri', '@uri', 'file://data/MenuItem.cv').
+annotation(31, 1, 21, 'param', '@param', 'menuItemCleaningOperationsSequence').
+annotation(32, 1, 22, 'out', '@out', 'CleanMenuItem.csv').
+annotation(33, 1, 22, 'uri', '@uri', 'file://data/clean/CleanMenuItem.csv').
+annotation(34, 1, 23, 'end', '@end', 'CleanMenuItemWithOpenRefine').
+annotation(35, 1, 25, 'begin', '@begin', 'CleanMenuPageWithOpenRefine').
+annotation(36, 1, 25, 'desc', '@desc', 'Use OpenRefine to clean MenuPage.csv').
+annotation(37, 1, 26, 'in', '@in', 'MenuPage.csv').
+annotation(38, 1, 26, 'uri', '@uri', 'file://data/MenuPage.cv').
+annotation(39, 1, 27, 'param', '@param', 'menuPageCleaningOperationsSequence').
+annotation(40, 1, 28, 'out', '@out', 'CleanMenuPage.csv').
+annotation(41, 1, 28, 'uri', '@uri', 'file://data/clean/CleanMenuPage.csv').
+annotation(42, 1, 29, 'end', '@end', 'CleanMenuPageWithOpenRefine').
+annotation(43, 1, 31, 'begin', '@begin', 'SQLOperationsOnMenu').
+annotation(44, 1, 31, 'desc', '@desc', 'Load CleanMenu.csv into table MENU in SQLLite').
+annotation(45, 1, 32, 'in', '@in', 'CleanMenu.csv').
+annotation(46, 1, 32, 'uri', '@uri', 'file://data/clean/CleanMenu.csv').
+annotation(47, 1, 33, 'param', '@param', 'menuLoadingSQLScript').
+annotation(48, 1, 34, 'out', '@out', 'MENU').
+annotation(49, 1, 34, 'uri', '@uri', 'sqlite://database.db/MENU').
+annotation(50, 1, 35, 'end', '@end', 'SQLOperationsOnMenu').
+annotation(51, 1, 37, 'begin', '@begin', 'SQLOperationsOnDish').
+annotation(52, 1, 37, 'desc', '@desc', 'Load CleanDish.csv into table DISH in SQLLite').
+annotation(53, 1, 38, 'in', '@in', 'CleanDish.csv').
+annotation(54, 1, 38, 'uri', '@uri', 'file://data/clean/CleanDish.csv').
+annotation(55, 1, 39, 'param', '@param', 'dishLoadingSQLScript').
+annotation(56, 1, 40, 'out', '@out', 'DISH').
+annotation(57, 1, 40, 'uri', '@uri', 'sqlite://database.db/DISH').
+annotation(58, 1, 41, 'end', '@end', 'SQLOperationsOnDish').
+annotation(59, 1, 43, 'begin', '@begin', 'SQLOperationsOnMenuItem').
+annotation(60, 1, 43, 'desc', '@desc', 'Load CleanMenuItem.csv into table MENU_ITEM in SQLLite').
+annotation(61, 1, 44, 'in', '@in', 'CleanMenuItem.csv').
+annotation(62, 1, 44, 'uri', '@uri', 'file://data/clean/CleanMenuItem.csv').
+annotation(63, 1, 45, 'param', '@param', 'menuItemLoadingSQLScript').
+annotation(64, 1, 46, 'out', '@out', 'MENU_ITEM').
+annotation(65, 1, 46, 'uri', '@uri', 'sqlite://database.db/MENU_ITEM').
+annotation(66, 1, 47, 'end', '@end', 'SQLOperationsOnMenuItem').
+annotation(67, 1, 49, 'begin', '@begin', 'SQLOperationsOnMenuPage').
+annotation(68, 1, 49, 'desc', '@desc', 'Load CleanMenuPage.csv into table MENU_PAGE in SQLLite').
+annotation(69, 1, 50, 'in', '@in', 'CleanMenuPage.csv').
+annotation(70, 1, 50, 'uri', '@uri', 'file://data/clean/CleanMenuPage.csv').
+annotation(71, 1, 51, 'param', '@param', 'menuPageLoadingSQLScript').
+annotation(72, 1, 52, 'out', '@out', 'MENU_PAGE').
+annotation(73, 1, 52, 'uri', '@uri', 'sqlite://database.db/MENU_PAGE').
+annotation(74, 1, 53, 'end', '@end', 'SQLOperationsOnMenuPage').
+annotation(75, 1, 55, 'begin', '@begin', 'SQLConstraintsCheck').
+annotation(76, 1, 55, 'desc', '@desc', 'Use SQL to check integrity constraints and functional dependencies').
+annotation(77, 1, 56, 'in', '@in', 'MENU').
+annotation(78, 1, 56, 'uri', '@uri', 'sqlite://database.db/MENU').
+annotation(79, 1, 57, 'in', '@in', 'DISH').
+annotation(80, 1, 57, 'uri', '@uri', 'sqlite://database.db/DISH').
+annotation(81, 1, 58, 'in', '@in', 'MENU_ITEM').
+annotation(82, 1, 58, 'uri', '@uri', 'sqlite://database.db/MENU_PAGE').
+annotation(83, 1, 59, 'in', '@in', 'MENU_PAGE').
+annotation(84, 1, 59, 'uri', '@uri', 'sqlite://database.db/MENU_ITEM').
+annotation(85, 1, 60, 'param', '@param', 'IntegrityConstraintsANDFunctionalDependenciesScript').
+annotation(86, 1, 61, 'out', '@out', 'MENU_FINAL').
+annotation(87, 1, 61, 'uri', '@uri', 'sqlite://database.db/MENU_FINAL').
+annotation(88, 1, 62, 'out', '@out', 'DISH_FINAL').
+annotation(89, 1, 62, 'uri', '@uri', 'sqlite://database.db/DISH_FINAL').
+annotation(90, 1, 63, 'out', '@out', 'MENU_ITEM_FINAL').
+annotation(91, 1, 63, 'uri', '@uri', 'sqlite://database.db/MENU_ITEM_FINAL').
+annotation(92, 1, 64, 'out', '@out', 'MENU_PAGE_FINAL').
+annotation(93, 1, 64, 'uri', '@uri', 'sqlite://database.db/MENU_PAGE_FINAL').
+annotation(94, 1, 65, 'end', '@end', 'SQLConstraintsCheck').
+annotation(95, 1, 66, 'out', '@out', 'MENU_FINAL').
+annotation(96, 1, 66, 'uri', '@uri', 'sqlite://database.db/MENU_FINAL').
+annotation(97, 1, 67, 'out', '@out', 'DISH_FINAL').
+annotation(98, 1, 67, 'uri', '@uri', 'sqlite://database.db/DISH_FINAL').
+annotation(99, 1, 68, 'out', '@out', 'MENU_ITEM_FINAL').
+annotation(100, 1, 68, 'uri', '@uri', 'sqlite://database.db/MENU_ITEM_FINAL').
+annotation(101, 1, 69, 'out', '@out', 'MENU_PAGE_FINAL').
+annotation(102, 1, 69, 'uri', '@uri', 'sqlite://database.db/MENU_PAGE_FINAL').
+annotation(103, 1, 70, 'end', '@end', 'OverallDataCleanupWorkflow').
+
+% FACT: annotation_qualifies(qualifying_annotation_id, primary_annotation_id).
+annotation_qualifies(2, 1).
+annotation_qualifies(4, 3).
+annotation_qualifies(6, 5).
+annotation_qualifies(8, 7).
+annotation_qualifies(10, 9).
+annotation_qualifies(12, 11).
+annotation_qualifies(14, 13).
+annotation_qualifies(17, 16).
+annotation_qualifies(20, 19).
+annotation_qualifies(22, 21).
+annotation_qualifies(25, 24).
+annotation_qualifies(28, 27).
+annotation_qualifies(30, 29).
+annotation_qualifies(33, 32).
+annotation_qualifies(36, 35).
+annotation_qualifies(38, 37).
+annotation_qualifies(41, 40).
+annotation_qualifies(44, 43).
+annotation_qualifies(46, 45).
+annotation_qualifies(49, 48).
+annotation_qualifies(52, 51).
+annotation_qualifies(54, 53).
+annotation_qualifies(57, 56).
+annotation_qualifies(60, 59).
+annotation_qualifies(62, 61).
+annotation_qualifies(65, 64).
+annotation_qualifies(68, 67).
+annotation_qualifies(70, 69).
+annotation_qualifies(73, 72).
+annotation_qualifies(76, 75).
+annotation_qualifies(78, 77).
+annotation_qualifies(80, 79).
+annotation_qualifies(82, 81).
+annotation_qualifies(84, 83).
+annotation_qualifies(87, 86).
+annotation_qualifies(89, 88).
+annotation_qualifies(91, 90).
+annotation_qualifies(93, 92).
+annotation_qualifies(96, 95).
+annotation_qualifies(98, 97).
+annotation_qualifies(100, 99).
+annotation_qualifies(102, 101).
